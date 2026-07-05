@@ -6,58 +6,63 @@ BATTLE_IMAGE_PATH = 'images/battle.png'
 ITEM_IMAGE_PATH = 'images/item.png'
 POKEMON_CAPTURE_PATH = 'images/pokemon_capture.png'
 POKEMON_NO_CAPTURE_PATH = 'images/pokemon_no_capture.png'
-MILCERY = 'images/milcery.png'
-PANCHAM = 'images/pancham.png'
-SOLROCK = 'images/solrock.png'
-LUNATONE = 'images/lunatone.png'
-SNUBBULL = 'images/snubbull.png'
-GLIGAR = 'images/gligar.png'
-SKORUPI = 'images/skorupi.png'
-RALTS = 'images/ralts.png'
-MAWILE = 'images/mawile.png'
-NOSEPASS = 'images/nosepass.png'
-CHANSEY = 'images/chansey.png'
-SWELLOW = 'images/swellow.png'
-VIGOROTH = 'images/vigoroth.png'
-RAPIDASH = 'images/rapidash.png'
-PACHIRISU = 'images/pachirisu.png'
-ONIX = 'images/onix.png'
-TOXICROAK = 'images/toxicroak.png'
-KRICKETUNE = 'images/kricketune.png'
-ABOMASNOW = 'images/abomasnow.png'
-MURKROW = 'images/murkrow.png'
-BAGON = 'images/bagon.png'
-MARILL = 'images/marill.png'
-ROLYCOLY = 'images/rolycoly.png'
-POLIWHIRL = 'images/poliwhirl.png'
-SPEAROW = 'images/spearow.png'
-FEAROW = 'images/fearow.png'
-MAGMAR = 'images/magmar.png'
-PAWNIARD = 'images/pawniard.png'
+
+# Each Pokémon maps to one or more matchers: (image_path, region coords, expected diff values).
+# A Pokémon is detected if ANY of its matchers returns a diff value in the expected set.
+# The expected values are calibrated for 1920x1080 — do not change them without recalibrating.
+POKEMON_MATCHERS = {
+    "milcery": [('images/milcery.png', (1097, 33, 1213, 68), {0})],          # Sweet Items: Strawberry, Berry, Love,
+                                                                              # Star, Clover, Flower, Ribbon Sweet
+    "pancham": [('images/pancham.png', (1100, 36, 1220, 67), {0})],          # Mars stone
+    "solrock": [('images/solrock.png', (1100, 35, 1205, 67), {0})],          # Sun stone
+    "lunatone": [('images/lunatone.png', (1100, 35, 1227, 68), {0})],        # Moon stone
+    "snubbull": [('images/snubbull.png', (1100, 35, 1227, 68), {0})],        # Nymph stone
+    "gligar": [('images/gligar.png', (1104, 38, 1187, 65), {0})],            # Desert stone - can fail in the desert
+    "skorupi": [('images/skorupi.png', (1101, 45, 1208, 65), {0})],          # Venus stone - can fail in the desert
+    "ralts": [('images/ralts.png', (1100, 36, 1170, 65), {0})],              # Dawn stone
+    "mawile": [('images/mawile.png', (1100, 36, 1199, 66), {0})],            # Metal stone
+    "nosepass": [('images/nosepass.png', (1100, 36, 1227, 66), {0})],        # Mineral stone
+    "chansey": [('images/chansey.png', (1100, 36, 1217, 66), {0})],          # Oval stone
+    "swellow": [('images/swellow.png', (1100, 36, 1219, 67), {0})],          # Celestial stone
+    "vigoroth": [('images/vigoroth.png', (1100, 36, 1222, 67), {0})],        # Common board
+    "rapidash": [('images/rapidash.png', (1100, 36, 1225, 67), {0})],        # Fire board
+    "pachirisu": [('images/pachirisu.png', (1100, 36, 1230, 67), {0})],      # Thunder board
+    "onix": [('images/onix.png', (1100, 36, 1170, 67), {0})],                # Stone board
+    "toxicroak": [('images/toxicroak.png', (1100, 36, 1230, 67), {0})],      # Strong board
+    "kricketune": [('images/kricketune.png', (1100, 36, 1245, 67), {0})],    # Bug board
+    "abomasnow": [('images/abomasnow.png', (1100, 36, 1265, 67), {0})],      # Ice board
+    "murkrow": [('images/murkrow.png', (1100, 36, 1225, 67), {0})],          # Dark board
+    "bagon": [('images/bagon.png', (1100, 36, 1190, 67), {0})],              # Draco board
+    "marill": [('images/marill.png', (1100, 36, 1190, 67), {0})],            # Goblin board
+    "rolycoly": [('images/rolycoly.png', (1100, 36, 1225, 67), {0})],        # Black mineral
+    "poliwhirl": [('images/poliwhirl.png', (1100, 36, 1235, 67), {0})],      # King stone
+    "spearow": [('images/spearow.png', (1100, 36, 1215, 67), {12791}),       # Beautiful feather
+                ('images/fearow.png', (1100, 36, 1200, 67), {10898})],
+    "magmar": [('images/magmar.png', (1100, 36, 1205, 67), {0})],            # Amp magmar
+    "pawniard": [('images/pawniard.png', (1100, 36, 1230, 67), {0})],        # extrange disc
+}
+
+
+def hold_key(key, duration):
+    pyautogui.keyDown(key)
+    time.sleep(duration)
+    pyautogui.keyUp(key)
 
 
 def move_up(duration):
-    pyautogui.keyDown('up')
-    time.sleep(duration)
-    pyautogui.keyUp('up')
+    hold_key('up', duration)
 
 
 def move_down(duration):
-    pyautogui.keyDown('down')
-    time.sleep(duration)
-    pyautogui.keyUp('down')
+    hold_key('down', duration)
 
 
 def move_left(duration):
-    pyautogui.keyDown('left')
-    time.sleep(duration)
-    pyautogui.keyUp('left')
+    hold_key('left', duration)
 
 
 def move_right(duration):
-    pyautogui.keyDown('right')
-    time.sleep(duration)
-    pyautogui.keyUp('right')
+    hold_key('right', duration)
 
 
 def press_key(key, wait):
@@ -67,7 +72,7 @@ def press_key(key, wait):
 
 
 def press_key_multi(times, key, wait):
-    for i in range(times):
+    for _ in range(times):
         press_key(key, wait)
 
 
@@ -84,7 +89,7 @@ def right_click_at_position(x, y):
 def create_egg():
     extreme_vel()
     move_up(0.2)
-    for i in range(28):
+    for _ in range(28):
         move_left(1)
         move_right(1)
     move_right(0.2)
@@ -181,7 +186,7 @@ def not_capture():
     pokemon_no_capture_region = regions.get_region(1518, 30, 1617, 91)
     value = detection.compare_image(POKEMON_NO_CAPTURE_PATH, pokemon_no_capture_region)
     print(f"pokemon_no_capture_region = {value}")
-    return value != 1058667 and value != 757903 and value != 676796 and value != 762852 and value != 713175 and value != 725372
+    return value not in {1058667, 1004869, 901868, 757903, 676796, 674281, 762852, 713175, 725372, 888754, 800270}
 
 
 def is_capture():
@@ -202,174 +207,16 @@ def waiting():
 
 
 def look_for_pokemon(pokemon):
-    pokemons = {
-        "milcery": milcery(),        # Sweet Items: Strawberry Sweet - Berry Sweet - Love Sweet - Star Sweet  - Clover
-                                     # Sweet - Flower Sweet - Ribbon Sweet
-        "pancham": pancham(),        # Mars stone
-        "solrock": solrock(),        # Sun stone
-        "lunatone": lunatone(),      # Moon stone
-        "snubbull": snubbull(),      # Nymph stone
-        "gligar": gligar(),          # Desert stone - Because of the desert can fail
-        "skorupi": skorupi(),        # Venus stone - Because of the desert can fail
-        "ralts": ralts(),            # Dawn stone
-        "mawile": mawile(),          # Metal stone
-        "nosepass": nosepass(),      # Mineral stone
-        "chansey": chansey(),        # Oval stone
-        "swellow": swellow(),        # Celestial stone
-        "vigoroth": vigoroth(),      # Common board
-        "rapidash": rapidash(),      # Fire board
-        "pachirisu": pachirisu(),    # Thunder board
-        "onix": onix(),              # Stone board
-        "toxicroak": toxicroak(),    # Strong board
-        "kricketune": kricketune(),  # Bug board
-        "abomasnow": abomasnow(),    # Ice board
-        "murkrow": murkrow(),        # Dark board
-        "bagon": bagon(),            # Draco board
-        "marill": marill(),          # Goblin board
-        "rolycoly": rolycoly(),      # Black mineral
-        "poliwhirl": poliwhirl(),    # King stone
-        "spearow": spearow(),        # Beautiful feather
-        "magmar": magmar(),          # Amp magmar
-        "pawniard": pawniard(),      # extrange disc
-        "": False
-    }
-    return pokemons.get(pokemon, lambda: True)
+    matchers = POKEMON_MATCHERS.get(pokemon)
+    if matchers is None:
+        print(f"Unknown Pokemon '{pokemon}', treating as no match.")
+        return False
 
-
-def milcery():
-    milcery_region = regions.get_region(1097, 33, 1213, 68)
-    return detection.compare_image(MILCERY, milcery_region) == 0
-
-
-def pancham():
-    pancham_region = regions.get_region(1100, 36, 1220, 67)
-    return detection.compare_image(PANCHAM, pancham_region) == 0
-
-
-def solrock():
-    solrock_region = regions.get_region(1100, 35, 1205, 67)
-    return detection.compare_image(SOLROCK, solrock_region) == 0
-
-
-def lunatone():
-    lunatone_region = regions.get_region(1100, 35, 1227, 68)
-    return detection.compare_image(LUNATONE, lunatone_region) == 0
-
-
-def snubbull():
-    snubbull_region = regions.get_region(1100, 35, 1227, 68)
-    return detection.compare_image(SNUBBULL, snubbull_region) == 0
-
-
-def gligar():
-    gligar_region = regions.get_region(1104, 38, 1187, 65)
-    return detection.compare_image(GLIGAR, gligar_region) == 0
-
-
-def skorupi():
-    skorupi_region = regions.get_region(1101, 45, 1208, 65)
-    return detection.compare_image(SKORUPI, skorupi_region) == 0
-
-
-def ralts():
-    ralts_region = regions.get_region(1100, 36, 1170, 65)
-    return detection.compare_image(RALTS, ralts_region) == 0
-
-
-def mawile():
-    mawile_region = regions.get_region(1100, 36, 1199, 66)
-    return detection.compare_image(MAWILE, mawile_region) == 0
-
-
-def nosepass():
-    nosepass_region = regions.get_region(1100, 36, 1227, 66)
-    return detection.compare_image(NOSEPASS, nosepass_region) == 0
-
-
-def chansey():
-    chansey_region = regions.get_region(1100, 36, 1217, 66)
-    return detection.compare_image(CHANSEY, chansey_region) == 0
-
-
-def swellow():
-    swellow_region = regions.get_region(1100, 36, 1219, 67)
-    return detection.compare_image(SWELLOW, swellow_region) == 0
-
-
-def vigoroth():
-    vigoroth_region = regions.get_region(1100, 36, 1222, 67)
-    return detection.compare_image(VIGOROTH, vigoroth_region) == 0
-
-
-def rapidash():
-    rapidash_region = regions.get_region(1100, 36, 1225, 67)
-    return detection.compare_image(RAPIDASH, rapidash_region) == 0
-
-
-def pachirisu():
-    pachirisu_region = regions.get_region(1100, 36, 1230, 67)
-    return detection.compare_image(PACHIRISU, pachirisu_region) == 0
-
-
-def onix():
-    onix_region = regions.get_region(1100, 36, 1170, 67)
-    return detection.compare_image(ONIX, onix_region) == 0
-
-
-def toxicroak():
-    toxicroak_region = regions.get_region(1100, 36, 1230, 67)
-    return detection.compare_image(TOXICROAK, toxicroak_region) == 0
-
-
-def kricketune():
-    kricketune_region = regions.get_region(1100, 36, 1245, 67)
-    return detection.compare_image(KRICKETUNE, kricketune_region) == 0
-
-
-def abomasnow():
-    abomasnow_region = regions.get_region(1100, 36, 1265, 67)
-    return detection.compare_image(ABOMASNOW, abomasnow_region) == 0
-
-
-def murkrow():
-    murkrow_region = regions.get_region(1100, 36, 1225, 67)
-    return detection.compare_image(MURKROW, murkrow_region) == 0
-
-
-def bagon():
-    bagon_region = regions.get_region(1100, 36, 1190, 67)
-    return detection.compare_image(BAGON, bagon_region) == 0
-
-
-def marill():
-    marill_region = regions.get_region(1100, 36, 1190, 67)
-    return detection.compare_image(MARILL, marill_region) == 0
-
-
-def rolycoly():
-    rolycoly_region = regions.get_region(1100, 36, 1225, 67)
-    return detection.compare_image(ROLYCOLY, rolycoly_region) == 0
-
-
-def poliwhirl():
-    poliwhirl_region = regions.get_region(1100, 36, 1235, 67)
-    return detection.compare_image(POLIWHIRL, poliwhirl_region) == 0
-
-
-def spearow():
-    spearow_region = regions.get_region(1100, 36, 1215, 67)
-    fearow_region = regions.get_region(1100, 36, 1200, 67)
-    value_spearow = detection.compare_image(SPEAROW, spearow_region)
-    value_fearow = detection.compare_image(FEAROW, fearow_region)
-    print(f"spearow = {value_spearow} fearow {value_fearow}")
-    return value_spearow == 12791 or value_fearow == 10898
-
-
-def magmar():
-    magmar_region = regions.get_region(1100, 36, 1205, 67)
-    return detection.compare_image(MAGMAR, magmar_region) == 0
-
-
-def pawniard():
-    pawniard_region = regions.get_region(1100, 36, 1230, 67)
-    return detection.compare_image(PAWNIARD, pawniard_region) == 0
+    for image_path, coords, expected_values in matchers:
+        region = regions.get_region(*coords)
+        value = detection.compare_image(image_path, region)
+        if expected_values != {0}:
+            print(f"{image_path} = {value}")
+        if value in expected_values:
+            return True
+    return False

@@ -1,5 +1,4 @@
 import pyautogui
-import cv2
 import numpy as np
 from PIL import ImageDraw, Image
 from src import detection
@@ -17,6 +16,7 @@ def draw_rectangle(image, region):
 
 
 def show_image_with_rectangle(x1, y1, x2, y2):
+    import cv2  # debug-only helper; keeps OpenCV optional at runtime
     image = detection.capture_region(x1, y1, x2, y2)
     open_cv_image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     cv2.imshow("Captured Region with Rectangle", open_cv_image)
@@ -33,6 +33,9 @@ def normalize_brightness(image):
 
 
 def calculate_difference_sum(image1, image2):
+    # The subtraction runs on uint8 arrays, so it wraps around instead of giving
+    # a true absolute difference. All the expected diff values in movement.py
+    # were calibrated against this behavior — changing the dtype breaks them.
     np_image1 = np.array(image1)
     np_image2 = np.array(image2)
     difference = np.abs(np_image1 - np_image2)
