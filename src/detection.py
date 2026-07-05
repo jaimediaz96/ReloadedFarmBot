@@ -1,6 +1,8 @@
 from PIL import Image
-from src import utils
+from src import utils, regions
 import pyautogui
+
+ELDER_IMAGE_PATH = 'images/elder_image.png'
 
 
 def capture_region(x1, y1, x2, y2):
@@ -8,17 +10,21 @@ def capture_region(x1, y1, x2, y2):
     return screen
 
 
-def is_elder_present(elder_image_path, region):
+def compare_image(image_path, region, show_log=False):
     x1, y1, x2, y2 = region
-    elder_image = Image.open(elder_image_path).convert('L')
-    elder_image = utils.normalize_brightness(elder_image)
+    image = Image.open(image_path).convert('L')
+    image = utils.normalize_brightness(image)
     current_screen = capture_region(x1, y1, x2, y2).convert('L')
     current_screen = utils.normalize_brightness(current_screen)
-    diff = utils.calculate_difference_sum(elder_image, current_screen)
-    if diff == 0:
-        return True
-    if diff == 3912725:
-        return True
-    if 3306633 <= diff <= 4200168:
+    value = utils.calculate_difference_sum(image, current_screen)
+    if show_log:
+        print(f"diff = {value}")
+    return value
+
+
+def is_elder_present():
+    region = regions.get_region(475, 410, 585, 600)
+    diff = compare_image(ELDER_IMAGE_PATH, region)
+    if diff != 0:
         return True
     return False

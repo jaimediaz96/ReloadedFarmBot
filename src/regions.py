@@ -1,9 +1,9 @@
 from src import utils
 
 
-def get_elder_region():
-    x1_ratio, y1_ratio = 559 / 1920, 680 / 1080
-    x2_ratio, y2_ratio = 693 / 1920, 888 / 1080
+def get_region(x1, y1, x2, y2):
+    x1_ratio, y1_ratio = x1 / 1920, y1 / 1080
+    x2_ratio, y2_ratio = x2 / 1920, y2 / 1080
     return get_region_based_on_resolution(x1_ratio, y1_ratio, x2_ratio, y2_ratio)
 
 
